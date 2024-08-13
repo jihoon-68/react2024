@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import App from './app';
+
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container)
-root.render(<>
-<p>안녕</p>
-
-</>);
+root.render(<App />);
 
