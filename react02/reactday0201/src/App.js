@@ -52,6 +52,17 @@ const App = () => {
     console.log(todoListArr);
   }
 
+  //체크 박스 값 변경
+  function changeCkBox(change, no) {
+    let idx = todoListArr.findIndex((todo) => {
+      return todo.no === no;
+    });
+    let newdone = [...todoListArr];
+    newdone[idx].done = !newdone[idx].done;
+    setTodoList(newdone);
+    console.log(todoListArr);
+  }
+
   return (
     <div>
       <header className="jumbotron">
@@ -65,6 +76,7 @@ const App = () => {
         todoListArr={todoListArr}
         deleteItem={deleteItem}
         emendItemNo={emendItemNo}
+        changeCkBox={changeCkBox}
       />
     </div>
   );

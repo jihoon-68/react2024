@@ -3,6 +3,7 @@ export default (props) => {
   let todoListArr = props.todoListArr;
   let DeleteItem = props.deleteItem;
   let EmendItemNo = props.emendItemNo;
+  let ChangeCkBox = props.changeCkBox;
 
   //function emend() {}
   return (
@@ -22,10 +23,19 @@ export default (props) => {
             return (
               <tr key={item.no}>
                 <td>
-                  <input type="checkbox"></input>
+                  <input
+                    type="checkbox"
+                    onClick={() => {
+                      ChangeCkBox(item.done, item.no);
+                    }}
+                  ></input>
                 </td>
                 <td>
-                  <span>{item.title}</span>
+                  <span
+                    style={{ textDecoration: item.done ? "line-through" : "" }}
+                  >
+                    {item.title}
+                  </span>
                 </td>
                 <td>
                   <button
