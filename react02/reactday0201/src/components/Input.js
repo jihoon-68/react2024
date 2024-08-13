@@ -1,7 +1,6 @@
 import React from "react";
-
 // eslint-disable-next-line import/no-anonymous-default-export
-export default ({ appendItem }) => {
+export default ({ appendItem, emendText }) => {
   // 구조분해 할당 기호: 배열은 [], 객체는 {}
 
   const [inputValue, setInputValue] = React.useState("");
@@ -27,6 +26,14 @@ export default ({ appendItem }) => {
           type="button"
         >
           OK
+        </button>
+        <button
+          //버튼 누르면 todo title 변경하는 함수에 inputValue전달
+          onClick={() => emendText(inputValue)}
+          className="btn btn-primary"
+          type="button"
+        >
+          emend
         </button>
         <button className="btn btn-danger" type="button">
           Cancel
