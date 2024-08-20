@@ -3,7 +3,7 @@ import { useState } from "react";
 import ItemRow from "./itemRow";
 
 const App = () => {
-  console.log("App페이지");
+  //console.log("App페이지");
   // 전역변수를 state로 만들어 주어야 re rendering 된다.
   // 구조분해 할당 = state변수, setter함수
   const [name, setName] = useState("Todo List");
