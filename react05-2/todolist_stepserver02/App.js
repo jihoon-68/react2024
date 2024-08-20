@@ -39,8 +39,8 @@ app.post("/todo", (req, res)=>{
 });
 
 app.put("/todo", (req, res)=>{
-    // 할일 체크
-    console.log(req.body);
+    // 할일 수정
+    //console.log(req.body);
     const idx = todoList.findIndex((item) => {
         return item.no === parseInt(req.body.no);
     });
@@ -52,12 +52,13 @@ app.put("/todo", (req, res)=>{
 
 
 // localhost:5000/todo/105
-app.delete("/todo/:no", (req, res)=>{
+app.delete("/todo/", (req, res)=>{
     //console.log("Delete /todo :", req.params.no);
     // 할일 삭제
     // no가 같은 index 찾아서 제거
+    //console.log(req.body)
     const idx = todoList.findIndex((item) => {
-        return item.no === parseInt(req.params.no);
+        return item.no === parseInt(req.body.no);
     });
     if(idx != -1) {
         todoList.splice(idx, 1);

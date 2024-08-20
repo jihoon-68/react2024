@@ -32,13 +32,13 @@ const App = ()=>{
         });
     }
 
-    const onDelete = ({no, title, done}) => {
+    const onDelete = (todoitem) => {
         // const newList = todoList.filter((todo)=> {
         //     return todo.no != no;
         // });
-        console.log("프론트 no: ", no);
-        axios.delete(serverURL + "/"+no).then(function (response) {
-            console.log(response.data);
+        //console.log("프론트 no: ", no);
+        axios.delete(serverURL ,{data:todoitem}).then(function (response) {
+            //console.log(response.data);
             setTodoLilst(response.data); // setTodoLilst(response['data']);
         });
     };
