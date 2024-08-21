@@ -6,6 +6,7 @@ const Input = ({ saveList, emendValue, modify }) => {
   const [position, setposition] = useState("");
 
   const clean = () => {
+    //인풋창 초기화
     setname("");
     setdepartment("");
     setposition("");
@@ -16,8 +17,10 @@ const Input = ({ saveList, emendValue, modify }) => {
       이름:
       <input
         type="text"
+        //수정값이 있으면 수정 값을 없으면 일반 값을로 변경
         value={emendValue.name ? emendValue.name : name}
         onChange={(e) => {
+          //인풋에 수정 값이 들어 왔으때 입력창이 수정 값으로 고정 안되게하는 if문
           if (emendValue) {
             emendValue.name = e.target.value;
           }

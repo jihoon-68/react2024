@@ -13,6 +13,7 @@ const Output = ({ saramlist, deleted, modifyValueCall }) => {
           </tr>
         </thead>
         <tbody>
+          //표 내용 생성
           {saramlist.map((item, idx) => {
             return (
               <tr key={idx}>
