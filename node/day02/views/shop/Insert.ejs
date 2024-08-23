@@ -10,7 +10,7 @@
     <hr />
     <div class="container">
         <h2>새 상품 추가</h2>
-        <form action="/shop/insert" method="post">
+        <form action="/shop/insert" method="post" enctype="multipart/form-data">
             <table class="table">
                 <tr>
                     <th>NAME</th>
@@ -29,14 +29,50 @@
                     <td><input type="text" name="company" value=""/></td>
                 </tr>
                 <tr>
+                    <th>PHOTO</th>
+                    <td><input multiple type="file" name="photo" id="photoInput" value=""/></td>
+                </tr>
+                <tr>
                     <td colspan="2">
-                        <input type="submit" value="추가하기">
+                        <div id = "photo">사진 미리보기 영역</div>
                     </td>
                 </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" value="추가하기">
+                        
+                    </td>
+                </tr>
+                
             </table>
         </form>
         <hr/>
         <%-include('./ShopNav.ejs') %>
     </div>
+    <script>
+        var myFileInput = document.getElementById('photoInput');
+        myFileInput.onchange = function(e){
+            var input =e.target;
+            if(input.files.length > 0){
+                var prevImg = document.getElementById('photo');
+                prevImg.innerHTML ="";
+                console.dir(input.files);
+                for(var i =0; i<input.files.length; i++ ){
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                    // 실행 결과 처리
+                    var imgTag = document.createElement("img");
+                    imgTag.src = e.target.result;
+                    imgTag.style.width="100px";
+                    prevImg.appendChild(imgTag);
+                    }
+                    // Ajax엣와 같이 실행 함수, 실행 결과 처리 함수가 있다.
+                    //console.log(input.files[0]);
+                    reader.readAsDataURL(input.files[i]);
+                    
+                }
+			}
+        }
+        </script>
 </body>
 </html>
