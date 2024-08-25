@@ -12,11 +12,6 @@ const { MongoClient } = require("mongodb");
 const uri = "mongodb://127.0.0.1";
 const client = new MongoClient(uri);
 
-//DB와 컬랙션 선택자 미리 선언
-//const database = client.db("vehicle");
-//const cars = database.collection("car");
-//const user = database.collection("member");
-
 app.set("port", 3000);
 app.set("views", "views");
 app.set("view engine", "ejs");
@@ -65,66 +60,8 @@ var upload = multer({
   },
 });
 
-// 임시 데이터
-const memberList = [
-  {
-    _id: 101,
-    id: "user01",
-    password: "1234",
-    name: "홍길동",
-    email: "hong@gmail.com",
-  },
-  {
-    _id: 102,
-    id: "user02",
-    password: "12345",
-    name: "김길동",
-    email: "kim@gmail.com",
-  },
-  {
-    _id: 103,
-    id: "user03",
-    password: "123",
-    name: "박길동",
-    email: "lee@gmail.com",
-  },
-  {
-    _id: 104,
-    id: "user04",
-    password: "123456",
-    name: "이길동",
-    email: "park@gmail.com",
-  },
-];
-var noCnt = 107;
-
-// 쇼핑몰 상품 목록
-const carList = [
-  {
-    _id: 111,
-    name: "SM5",
-    price: 3000,
-    year: 1999,
-    company: "SAMSUNG",
-    writedate: "",
-    photos: [
-      {
-        originalname: "르노삼성sm520.png",
-        filename: "르노삼성sm520.png",
-        filesize: 371000,
-        mimetype: "img/png",
-      },
-      {
-        originalname: "르노삼성sm5.png",
-        filename: "르노삼성sm5.png",
-        filesize: 95900,
-        mimetype: "img/png",
-      },
-    ],
-  },
-];
-const cartList = [];
-var carSeq = 117;
+var noCnt = 101;
+var carSeq = 101;
 
 // 요청 라운팅 사용
 const router = express.Router();
@@ -173,7 +110,10 @@ router.route("/login").post(async (req, res) => {
     await client.connect();
     const db = client.db("vehicle");
     const member = db.collection("member");
+
+    //계정이 있는지 확인하는 용도
     const memberid = await member.find({ id }).toArray();
+    //계정하고 비밀번호가 일치하는 데이터 있는지 확인용
     const memberpass = await member.find({ id, password }).toArray();
 
     if (memberid[0]) {
@@ -450,6 +390,7 @@ router.route("/shop/delete").get(async (req, res) => {
 });
 router.route("/shop/cart").get(async (req, res) => {
   //장바구니 제품 출력
+  //멤버 컬럼 사용으로 세션 확인후 요청 처리
   //멤버 컬럼에 carts들고와 출력
   if (req.session.user !== undefined) {
     const _id = req.session.user._id;
