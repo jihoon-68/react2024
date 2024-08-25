@@ -304,6 +304,7 @@ router.route("/shop/insert").post(upload.any("photo", 1), async (req, res) => {
     const database = client.db("vehicle");
     const cars = database.collection("car");
 
+    //제품입력시 사진을 등옥안하면 사진없음 사진으로 저장
     await cars.insertOne({
       _id: carSeq++,
       name,
@@ -365,6 +366,8 @@ router.route("/shop/modify").post(upload.any("photo", 1), async (req, res) => {
       res.redirect("/shop");
       return;
     }
+
+    //사진이 변경되면 변경경된 사진으로 변경 안되면 기존 사진으로 저장
     await cars.updateOne(
       { _id },
       {
@@ -447,6 +450,7 @@ router.route("/shop/delete").get(async (req, res) => {
 });
 router.route("/shop/cart").get(async (req, res) => {
   //장바구니 제품 출력
+  //멤버 컬럼에 carts들고와 출력
   if (req.session.user !== undefined) {
     const _id = req.session.user._id;
     console.log(_id);
@@ -478,37 +482,42 @@ router.route("/shop/cart").get(async (req, res) => {
 router.route("/shop/delete/cart").get(async (req, res) => {
   //상세페이지에 들어 가서 장바구에 담는 방식으로 함
   const _id = parseInt(req.query._id);
-  const m_id = req.session.user._id;
-  try {
-    await client.connect();
-    const db = client.db("vehicle");
-    const member = db.collection("member");
-    const car = db.collection("car");
-    const carList = await car.find({ _id }).toArray();
-    if (!carList[0]) {
-      console.log("장바구니에 담기 오류");
-      res.redirect("/shop");
-      return;
+  //사람마다 장바구니를 따로 보이게 할려고
+  //유저 컬럼에 cart:[]여기에 장바구니 내용 저장
+  if (req.session.user !== undefined) {
+    const m_id = req.session.user._id;
+    try {
+      await client.connect();
+      const db = client.db("vehicle");
+      const member = db.collection("member");
+      const car = db.collection("car");
+      const carList = await car.find({ _id }).toArray();
+
+      if (!carList[0]) {
+        console.log("장바구니에 담기 오류");
+        res.redirect("/shop");
+        return;
+      }
+
+      //carts:[] 업데이트로 데이터 추가
+      //업데이트로 데이터 넣으떄 중복없이 넣을 수있는  addToSet속성 이용
+      await member.updateOne(
+        { _id: m_id },
+        { $addToSet: { carts: carList[0] } },
+        false,
+        false
+      );
+
+      res.redirect("/shop/cart");
+    } catch (e) {
+      console.error(e);
+      res.send("ERROR");
+    } finally {
+      client.close();
     }
-    await member.updateOne(
-      { _id: m_id },
-      { $addToSet: { carts: carList[0] } },
-      false,
-      false
-    );
-
-    res.redirect("/shop/cart");
-  } catch (e) {
-    console.error(e);
-    res.send("ERROR");
-  } finally {
-    client.close();
+  } else {
+    res.redirect("/login");
   }
-  //혹시나 답기를 눌렀을때 그제품이 없어 졌으면 콘솔 출력후 쇼핑홈으로
-
-  //아니면 장바구니 리스트에 선택한 제품 넣기
-  //cartList.push(carList[idx]);
-  //console.log(cartList);
 });
 
 // router 설정 맨 아래에 미들웨어 등록
