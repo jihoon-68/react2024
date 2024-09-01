@@ -22,6 +22,9 @@ app.use(cookieParser());
 app.use(
   expressSession({ secret: "my key", resave: true, saveUninitialized: true })
 );
+const user = [
+  { id: "1", password: "1", email: "123@naver.com", name: "박지훈" },
+];
 const questions = [
   { text: "당신은 새로운 아이디어를 실험하는 것을 좋아하나요?", type: "EI" },
   { text: "당신은 사람들과의 대화에서 에너지를 얻나요?", type: "EI" },
@@ -39,11 +42,58 @@ const questions = [
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./front-end/build/index.html"));
 });
-app.get("/date",(req, res) => {
+app.get("/date", (req, res) => {
   res.send(questions);
 });
+app.get("/login", (req, res) => {});
 
-app.post("/login", (req, res) => {});
+app.post("/loginBtn", (req, res) => {
+  const id = req.body.id;
+  const password = req.body.password;
+  console.log(id, password);
+
+  const idCk = user.findIndex((item) => item.id === id);
+  console.log(idCk);
+  try {
+    if (idCk !== -1) {
+      if (password === user[idCk].password) {
+        req.session.user = {
+          id: user[idCk].id,
+          name: user[idCk].name,
+          email: user[idCk].email,
+        };
+        res.send(true);
+      } else {
+        res.send(false);
+      }
+    } else {
+      res.send(false);
+    }
+  } catch (error) {
+    console.error(error);
+    res.send(false);
+  }
+});
+
+app.post("/signupBtn", (req, res) => {
+  console.log(req.body);
+  try {
+    const item = req.body;
+    user.push(item);
+    res.send(true);
+  } catch (error) {
+    console.error(error);
+    res.send(false);
+  }
+  console.log(user);
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy((err) => {
+    if (err) throw err;
+    console.log("로그아웃 성공!");
+  });
+});
 
 const server = http.createServer(app);
 server.listen(app.get("port"), () => {

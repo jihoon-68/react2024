@@ -2,7 +2,7 @@ import React from "react";
 import { Link, Outlet } from "react-router-dom";
 import "./Navbar.css";
 
-function Navbar() {
+function Navbar({ checkIn }) {
   return (
     <div className="App">
       <nav className="navbar">
@@ -16,8 +16,11 @@ function Navbar() {
           <li>
             <Link to="/mbti">MBTI 검사</Link>
           </li>
-          <li>
+          <li hidden={checkIn ? true : false}>
             <Link to="/login">로그인</Link>
+          </li>
+          <li hidden={checkIn ? false : true}>
+            <Link to="/logout">로그아웃</Link>
           </li>
         </ul>
       </nav>

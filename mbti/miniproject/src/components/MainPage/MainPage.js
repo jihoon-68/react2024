@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./MainPage.css";
 
 function MainPage() {
   const [text, setText] = useState("");
-  const fullText = "Hello World!";
-  const typingSpeed = 150; // Time in milliseconds
+  const typingTimeoutRef = useRef(null);
+  const indexRef = useRef(0);
+  const fullText = '"H ello_World!"';
+  const typingSpeed = 200; // Time in milliseconds
 
   useEffect(() => {
-    let i = 0;
-    let typingTimeout;
+    // Ensure the ref starts at 0 when fullText changes
+    indexRef.current = 0;
+    setText(""); // Clear the text when fullText changes
 
     const typing = () => {
-      if (i < fullText.length) {
-        setText((prevText) => prevText + fullText.charAt(i));
-        i++;
-        typingTimeout = setTimeout(typing, typingSpeed);
+      if (indexRef.current < fullText.length) {
+        setText((prevText) => prevText + fullText.charAt(indexRef.current));
+        indexRef.current++;
+        typingTimeoutRef.current = setTimeout(typing, typingSpeed);
       }
     };
 
@@ -22,9 +25,9 @@ function MainPage() {
 
     // Cleanup function to clear timeout if the component unmounts
     return () => {
-      clearTimeout(typingTimeout);
+      clearTimeout(typingTimeoutRef.current);
     };
-  }, []); // Empty dependency array means this effect runs only once
+  }, [fullText, typingSpeed]); // Empty dependency array means this effect runs only once
 
   return (
     <div className="main-page">
