@@ -4,6 +4,8 @@ const app = express();
 const path = require("path");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const expressSession = require("express-session");
 
 const { MongoClient } = require("mongodb");
 const uri = "mongodb://127.0.0.1";
@@ -15,6 +17,11 @@ app.use(express.static(path.join(__dirname, "./front-end/build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+app.use(cookieParser());
+
+app.use(
+  expressSession({ secret: "my key", resave: true, saveUninitialized: true })
+);
 const questions = [
   { text: "당신은 새로운 아이디어를 실험하는 것을 좋아하나요?", type: "EI" },
   { text: "당신은 사람들과의 대화에서 에너지를 얻나요?", type: "EI" },
@@ -28,12 +35,15 @@ const questions = [
   { text: "당신은 즉흥적으로 행동하는 것을 좋아하나요?", type: "JP" },
   { text: "당신은 계획적이고 체계적인 접근을 선호하나요?", type: "JP" },
 ];
+
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "./front-end/build/index.html"));
 });
-app.get("/date", (req, res) => {
+app.get("/date",(req, res) => {
   res.send(questions);
 });
+
+app.post("/login", (req, res) => {});
 
 const server = http.createServer(app);
 server.listen(app.get("port"), () => {

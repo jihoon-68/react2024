@@ -16,7 +16,7 @@ function App() {
     axios.get(serverUrl + "date").then(function (response) {
       setquestions(response.data);
     });
-  });
+  }, []);
   return (
     <BrowserRouter>
       <Routes>
