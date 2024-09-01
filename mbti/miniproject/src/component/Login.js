@@ -1,4 +1,4 @@
-const Iogin= () => {
+const Login = () => {
   return <></>;
 };
-export default Iogin();
+export default Login();

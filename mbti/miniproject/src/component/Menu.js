@@ -1,8 +1,14 @@
-import {Link,Outlet} from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 const Menu = () => {
-  return(<div>
-    <Link to="/">Home</Link>
-    <Link to="login"></Link>
-  </div>) ;
+  return (
+    <div>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="login"></Link>
+        <Link to="Signup"></Link>
+      </nav>
+      <Outlet />
+    </div>
+  );
 };
 export default Menu();
