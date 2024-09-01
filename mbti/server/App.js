@@ -11,12 +11,12 @@ const client = new MongoClient(uri);
 
 app.set("port", 5000);
 app.use(cors());
-app.use(express.static(path.join(__dirname, "../front-end/build")));
+app.use(express.static(path.join(__dirname, "./front-end/build")));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../front-end/build/index.html"));
+  res.sendFile(path.join(__dirname, "./front-end/build/index.html"));
 });
 
 const server = http.createServer(app);
