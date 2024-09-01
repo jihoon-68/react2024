@@ -1,0 +1,83 @@
+/* 메인 페이지의 전체적인 레이아웃을 설정 */
+.main-page {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-image: url("${process.env.PUBLIC_URL}/images/earth.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 네비게이션 바 스타일 */
+.navbar {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background-color: rgba(51, 51, 51, 0.8);
+  padding: 10px 0;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar ul li {
+  margin: 0 15px;
+}
+
+.navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar ul li a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 메인 헤더 텍스트 스타일 */
+.main-header {
+  text-align: center;
+  margin-top: -50px; /* 네비게이션 바로 인해 생기는 여백을 없애기 위해 마이너스 마진 사용 */
+}
+
+.main-header h1 {
+  font-size: 4em;
+  font-weight: bold;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+/* 타이핑 효과의 텍스트 스타일 */
+.typing {
+  font-size: 3em;
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .navbar ul li a {
+    font-size: 16px;
+  }
+
+  .main-header h1 {
+    font-size: 3em;
+  }
+
+  .typing {
+    font-size: 2em;
+  }
+}

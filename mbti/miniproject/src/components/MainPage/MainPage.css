@@ -1,0 +1,65 @@
+/* MainPage.css */
+
+.main-page {
+  text-align: center;
+  color: white;
+  background-image: url("/public/images/earth.jpg"); /* public/images 폴더에 위치한 이미지 */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 0;
+  color: white;
+  z-index: 1000; /* Ensure it stays on top */
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar li {
+  margin: 0 15px;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}
+
+.main-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  padding: 20px;
+}
+
+.typing {
+  font-size: 3em;
+  font-weight: bold;
+  white-space: nowrap; /* Prevent text wrapping */
+}
+
+.subtitle {
+  font-size: 1.5em;
+  margin-top: 20px;
+  color: #dcdcdc;
+}
