@@ -1,0 +1,77 @@
+/* 회원가입 페이지 전체 스타일 */
+.main-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* 화면 전체 높이 */
+  padding: 20px;
+  background-color: #f8f9fa; /* 배경색 */
+}
+
+/* 제목 스타일 */
+.main-page h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #ffffff; /* 하얀색 */
+  margin-bottom: 20px;
+  opacity: 0; /* 초기에는 숨김 */
+  animation: fadeIn 3s forwards; /* 애니메이션을 3초 동안 실행 */
+}
+
+/* 레이블 스타일 */
+.main-page span {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #495057; /* 어두운 회색 */
+  margin: 10px 0 5px; /* 상하 여백 */
+}
+
+/* 입력 필드 스타일 */
+.main-page input {
+  width: 100%;
+  max-width: 400px; /* 최대 너비 */
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ced4da;
+  border-radius: 8px; /* 둥근 모서리 */
+  font-size: 1rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+}
+
+/* 버튼 스타일 */
+.main-page button {
+  width: 100%;
+  max-width: 400px; /* 최대 너비 */
+  padding: 12px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #007bff; /* 버튼 색상 */
+  border: none;
+  border-radius: 8px; /* 둥근 모서리 */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* 배경색 변화 애니메이션 */
+}
+
+.main-page button:hover {
+  background-color: #0056b3; /* 호버 상태 색상 */
+}
+
+/* 오류 메시지 스타일 (추가할 경우) */
+.error-message {
+  color: #dc3545; /* 오류 색상 */
+  font-size: 0.875rem;
+  margin: 10px 0;
+}
+
+/* 애니메이션 정의 */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* 시작할 때 투명 */
+  }
+  to {
+    opacity: 1; /* 끝날 때 불투명 */
+  }
+}

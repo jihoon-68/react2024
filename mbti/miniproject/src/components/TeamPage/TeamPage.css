@@ -1,5 +1,4 @@
-/* TeamPage.css */
-
+/* 전체 페이지 스타일 */
 .team-page {
   font-family: Arial, sans-serif;
   padding-top: 60px; /* Navbar 높이만큼 패딩 추가 */
@@ -7,12 +6,13 @@
   color: #333;
 }
 
+/* 헤더 스타일 */
 .team-header {
   text-align: center;
   padding: 40px 20px;
   background-color: #ffffff;
   color: #000000;
-  border-bottom: 6px solid #2c3e50;
+  border-bottom: 6px solid #ffffff;
 }
 
 .team-header h1 {
@@ -34,12 +34,14 @@
   color: #000000;
 }
 
+/* 팀 콘텐츠 스타일 */
 .team-content {
   padding: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
+/* 팀원 블록 스타일 */
 .team-members {
   display: flex;
   flex-wrap: wrap;
@@ -55,12 +57,9 @@
   width: 280px;
   text-align: center;
   padding: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.team-member:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+  cursor: pointer;
+  position: relative;
 }
 
 .team-member img {
@@ -100,4 +99,29 @@
 .keyword {
   font-weight: bold; /* 볼드체 */
   color: #e74c3c; /* 강조 색상 */
+}
+
+/* 추가 정보 스타일 */
+.additional-info {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.team-member.active .additional-info {
+  opacity: 1;
+}
+
+/* 팀원 블록 클릭 시 스타일 */
+.team-member.active {
+  transform: translateY(-50px); /* 블록이 위로 이동 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }

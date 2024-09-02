@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 const Signup = ({ signup }) => {
   const navigate = useNavigate();
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  const [email, setemail] = useState("");
+  const [email, setEmail] = useState("");
 
   const handling = (signupCk) => {
     console.log(signupCk);
@@ -16,51 +17,39 @@ const Signup = ({ signup }) => {
   };
 
   return (
-    <div className="signup-page">
-      <h1>회원가입</h1>
-      <span>아이디</span>
+    <div className="main-page">
+      <h1>"baesh에서 새롭게 태어나보세요."</h1>
       <input
         type="text"
         value={id}
-        onChange={(e) => {
-          setId(e.target.value);
-        }}
+        onChange={(e) => setId(e.target.value)}
+        placeholder="아이디"
       />
-      <br />
-      <span>비밀번호</span>
       <input
-        type="text"
+        type="password"
         value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-        }}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="비밀번호"
       />
-      <br />
-      <span>이름</span>
       <input
         type="text"
         value={name}
-        onChange={(e) => {
-          setName(e.target.value);
-        }}
+        onChange={(e) => setName(e.target.value)}
+        placeholder="이름"
       />
-      <br />
-      <span>이메일</span>
       <input
-        type="text"
+        type="email"
         value={email}
-        onChange={(e) => {
-          setemail(e.target.value);
-        }}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="이메일"
       />
-      <br />
       <button
         onClick={async () => {
-          const signupck = await signup(id, password, name, email);
-          handling(signupck);
+          const signupCk = await signup(id, password, name, email);
+          handling(signupCk);
         }}
       >
-        화원가입
+        회원가입
       </button>
     </div>
   );

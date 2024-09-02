@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
+import axios from "axios";
 import MainPage from "./components/MainPage/MainPage";
 import TeamPage from "./components/TeamPage/TeamPage";
 import MBTIPage from "./components/MBTIPage/MBTIPage";
@@ -7,8 +8,8 @@ import Navbar from "./components/Navbar/Navbar";
 import Login from "./components/LoginPaage/Login";
 import Signup from "./components/SignupPaage/Signup";
 import Logout from "./components/Logoutpage/Logout";
+import Profile from "./components/ProfilePage/Profile";
 import "./App.css";
-import axios from "axios";
 
 function App() {
   //이거 엑시오스로 받아오기
@@ -57,12 +58,12 @@ function App() {
       if (isAuthenticated) {
         return isAuthenticated;
       } else {
-        alert("아이디/비밀번호가 틀렸습니다.");
+        alert("회원가입 중 오류가 발생했습니다.");
         return isAuthenticated;
       }
     } catch (error) {
       console.error("Login failed:", error);
-      alert("회원가입 중 오류가 발생했습니다.");
+      alert("회원가입 중 네트워크 오류가 발생했습니다.");
       return false;
     }
   };
@@ -86,7 +87,7 @@ function App() {
           <Route path="/mbti" element={<MBTIPage questions={questions} />} />
           <Route path="/login" element={<Login login={login} />} />
           <Route path="/signup" element={<Signup signup={signup} />} />
-          <Route path="/logout" element={<Logout logout={logout} />} />
+          <Route path="/profile" element={<Profile logout={logout}/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

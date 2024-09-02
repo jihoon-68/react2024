@@ -20,7 +20,7 @@ function Navbar({ checkIn }) {
             <Link to="/login">로그인</Link>
           </li>
           <li hidden={checkIn ? false : true}>
-            <Link to="/logout">로그아웃</Link>
+            <Link to="/profile">프로필</Link>
           </li>
         </ul>
       </nav>

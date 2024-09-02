@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import "./TeamPage.css";
 import Navbar from "../Navbar/Navbar";
+
+const logoUrl = "../../images/logo2.png";
 
 const teamMembers = [
   {
@@ -13,6 +15,8 @@ const teamMembers = [
       "기획: 프로젝트의 전반적인 기획과 전략을 수립합니다.\n" +
       "프론트 개발: 사용자 인터페이스를 개발하고 개선합니다.",
     keywords: ["리더십", "기획", "프론트 개발"],
+    email: "baesh6778@gmail.com",
+    blog: "https://baesh.tistory.com/"
   },
   {
     name: "박지훈",
@@ -23,6 +27,8 @@ const teamMembers = [
       "프론트 개발: 웹사이트의 사용자 인터페이스를 디자인하고 개발합니다.\n" +
       "백엔드 개발: 서버와 데이터베이스를 관리하고 개발합니다.",
     keywords: ["프론트 개발", "백엔드 개발"],
+    email: "20201168@kiu.kr",
+    blog: "https://github.com/jihoon-68"
   },
   {
     name: "이창준",
@@ -32,6 +38,8 @@ const teamMembers = [
     description:
       "프론트 개발: 웹 애플리케이션의 사용자 인터페이스를 구축합니다.",
     keywords: ["프론트 개발"],
+    email: "dlckdwns7196@naver.com",
+    blog: "https://github.com/Leecj0402"
   },
   {
     name: "명현재",
@@ -40,6 +48,9 @@ const teamMembers = [
     position: "right",
     description: "백엔드 개발: 서버 측의 로직과 데이터베이스를 관리합니다.",
     keywords: ["백엔드 개발"],
+    email: "endjoy0@naver.com",
+    blog: "https://lightnow1205.tistory.com/"
+    
   },
   {
     name: "송민규",
@@ -48,22 +59,41 @@ const teamMembers = [
     position: "left",
     description: "백엔드 개발: 데이터베이스 설계와 서버 로직을 개발합니다.",
     keywords: ["백엔드 개발"],
+    email: "ji@example.com",
+    blog: "https://example.com/ji"
   },
+  // 다른 팀원 데이터 추가
 ];
 
 function TeamPage() {
+  const [activeMember, setActiveMember] = useState(null);
+
+  const handleClick = (index) => {
+    // 현재 클릭된 팀원이 이미 활성화된 상태라면 비활성화 (null 설정)
+    if (activeMember === index) {
+      setActiveMember(null);
+    } else {
+      // 새로운 팀원 클릭 시 해당 팀원을 활성화
+      setActiveMember(index);
+    }
+  };
+
   return (
     <div className="team-page">
-      <Navbar />
+
       <div className="team-header">
-        <h1>TEAM BAESH</h1>
-        <h2>팀 소개</h2>
-        <p className="subtitle">우리는 가능성을 믿습니다.</p>
+        <img src={logoUrl} alt="Logo" className="logo" />
+        <h2>TEAM BAESH</h2>
+        <p className="subtitle">"우리는 가능성을 믿습니다."</p>
       </div>
       <div className="team-content">
         <div className="team-members">
           {teamMembers.map((member, index) => (
-            <div key={index} className={`team-member ${member.position}`}>
+            <div
+              key={index}
+              className={`team-member ${member.position} ${activeMember === index ? 'active' : ''}`}
+              onClick={() => handleClick(index)}
+            >
               <img src={member.image} alt={member.name} />
               <div className="team-info">
                 <h3>{member.name}</h3>
@@ -85,6 +115,12 @@ function TeamPage() {
                     </React.Fragment>
                   ))}
                 </p>
+                {activeMember === index && (
+                  <div className="additional-info">
+                    <p>Email: <a href={`mailto:${member.email}`}>{member.email}</a></p>
+                    <p>Blog: <a href={member.blog} target="_blank" rel="noopener noreferrer">{member.blog}</a></p>
+                  </div>
+                )}
               </div>
             </div>
           ))}

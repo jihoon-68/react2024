@@ -35,7 +35,6 @@ const MBTIPage = ({ questions }) => {
 
   return (
     <div className="mbti-page">
-      <Navbar />
       <div className="mbti-content">
         <h1>MBTI 검사</h1>
         <div className="questions">
